@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import HomePage from './components/screens/home/HomePage'
+import LoginPage from './components/screens/login/LoginPage'
+import {
+    Redirect, Switch, Router,
+} from "react-router-dom";
+import React from "react";
+import PrivateRoute from "./components/utils/PrivateRoute";
+import LoginRoute from "./components/utils/LoginRoute";
+import history from "./history";
+import UserService from "./services/UserService";
+import HomePageServiceProvider from "./components/screens/home_service_provider/HomePageServiceProvider";
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+    return (
+        <Router history={history}>
+            <Switch>
+                <LoginRoute path="/login" exact component={LoginPage}>
+                </LoginRoute>
+                <PrivateRoute path="/home" exact component={UserService.isServiceProvider ? HomePageServiceProvider : HomePage}>
+                </PrivateRoute>
+                <PrivateRoute path="/home/:device_id" component={UserService.isServiceProvider ? HomePageServiceProvider : HomePage}>
+                </PrivateRoute>
+                <Redirect from="/**" to="/login"/>
+            </Switch>
+        </Router>
+    );
 }
 
 export default App;
