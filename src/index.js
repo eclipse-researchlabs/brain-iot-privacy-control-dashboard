@@ -120,9 +120,12 @@ const renderApp = () => ReactDOM.render(
     </React.StrictMode>,
     document.getElementById("root"));
 
-
-
+try {
+    UserService.initKeycloak(renderApp);
+} catch (e) {
+    renderApp();
+}
 HttpService.configure()
-UserService.initKeycloak(renderApp);
+
 
 

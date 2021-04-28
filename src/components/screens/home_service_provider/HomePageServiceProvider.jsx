@@ -7,12 +7,12 @@ import UserService from "../../../services/UserService";
 import MenuItem from "../../utils/MenuItem";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Snackbar from "@material-ui/core/Snackbar";
-import {setStatus} from "../../../redux/ducks/device";
 import {doLogout} from "../../../redux/ducks/user";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {menu} from "./menu/menu";
 import ServicesPage from "../service/ServicesPage";
-import ServiceDetailsPage from "../service/ServiceDetailsPage";
+import {getServicesAndPolicies, setStatus} from "../../../redux/ducks/service";
+import PrivacyPage from "../service/privacy/PrivacyPage";
 
 
 const useStyles = makeStyles(theme => ({
@@ -99,23 +99,28 @@ function HomePageServiceProvider(props){
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const selectedServiceId = props.match.params.service_id ? props.match.params.service_id : null
+    const services = useSelector(state => state.service)
+
+
+    const selectedServiceName = props.match.params.service_name ? props.match.params.service_name : null
+    console.log(selectedServiceName)
 
     const [selectedMenuIndex, setSelectedMenuIndex] = useState(0)
     const [isPopupVisible, setPopupVisibility] = useState(false)
 
 
     useEffect(()=>{
-        //dispatch(getDevicesAndPolicies());
+        dispatch(getServicesAndPolicies());
     },[dispatch])
 
 
-    // useEffect(()=>{
-    //     if (devices.error || devices.statusText){
-    //         setPopupVisibility(true)
-    //     }
-    //
-    // }, [dispatch, devices])
+    useEffect(()=>{
+        if (services.error || services.statusText){
+            setPopupVisibility(true)
+        }
+    }, [dispatch, services])
+
+
 
     function handlePopupClose(){
         setPopupVisibility(false)
@@ -176,11 +181,11 @@ function HomePageServiceProvider(props){
                 </Grid>
             </Grid>
         </Drawer>
-        {selectedServiceId ? <ServiceDetailsPage device_id={selectedServiceId}/> : <ServicesPage/>}
+        {selectedServiceName ? <PrivacyPage service_name={selectedServiceName}/> : <ServicesPage/>}
 
         <Snackbar autoHideDuration={4000}  open={isPopupVisible} onClose={handlePopupClose} anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}>
-            <Alert severity={true ? "error" : "success"}>
-                TEXT
+            <Alert severity={services.error ? "error" : "success"}>
+                {services.statusText}
             </Alert>
         </Snackbar>
     </div>

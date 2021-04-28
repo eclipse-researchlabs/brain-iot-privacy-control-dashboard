@@ -1,12 +1,13 @@
 import history from "../../../history";
 import UserService from "../../../services/UserService";
+import {REDIRECT_URI} from "../../../utils/config";
 
 
 export function* handleLogout(action){
 
     try {
         UserService.doLogout({
-            redirectUri: "http://localhost:3000/login"
+            redirectUri: REDIRECT_URI
         })
         history.push("/login")
 
@@ -27,7 +28,7 @@ export function* handleLoginKeycloak(action){
     try {
         if (!UserService.isLoggedIn())
             UserService.doLogin({
-                redirectUri: "http://localhost:3000/login"
+                redirectUri: REDIRECT_URI
             })
 
     }catch (error) {

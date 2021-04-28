@@ -3,9 +3,9 @@ import {makeStyles} from '@material-ui/core/styles';
 import {Button, CircularProgress, Grid, Typography} from "@material-ui/core";
 import PolicyList from "./PolicyList";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import history from "../../../history";
+import history from "../../../../history";
 import {useDispatch, useSelector} from "react-redux";
-import {registerNewDevicesAndPolicies} from "../../../redux/ducks/device";
+import {registerNewServicesAndPolicies} from "../../../../redux/ducks/service";
 
 const useStyles = makeStyles(theme=>({
 
@@ -62,22 +62,26 @@ function PrivacyPage(props){
 
     const classes = useStyles();
     const dispatch = useDispatch();
-    const device_id = props.device_id;
-    const devices = useSelector(state=>state.device);
+    const service_name = props.service_name;
+    const services = useSelector(state=>state.service);
 
-    const {available_policy, device_policy_list} = devices
+    const {service_scoped_list} = services
 
-    if (!device_policy_list)
-        return <div style={{margin:"auto", textAlign: "center"}}>
-            <Typography variant={"h6"}>Fetching device info...</Typography>
-            <CircularProgress style={{marginTop: 10}}/>
-        </div>
+    console.log(services)
+
+    if (!service_scoped_list)
+        return <Grid container alignItems={"center"} justify={"center"} style={{height: "100vh"}}>
+            <Grid item  align={"center"} >
+                <Typography variant={"h6"}>Fetching service info...</Typography>
+                <CircularProgress style={{marginTop: 10}}/>
+            </Grid>
+    </Grid>
 
 
-    const {loading, } = devices;
+    const {loading, } = services;
 
-    const selected_device_policy_list = devices.device_policy_list.find((devicePolicy)=>devicePolicy.device_id === props.device_id)
-    const set_policies = selected_device_policy_list.policy_list;
+    const selected_service_policy_list = services.service_scoped_list.find((servicePolicy)=>servicePolicy.service_name === service_name)
+    const set_policies = selected_service_policy_list.scope_list;
 
     let tempPolicies;
     tempPolicies = set_policies.slice()
@@ -99,9 +103,9 @@ function PrivacyPage(props){
 
      function handleSaveButtonClick()  {
 
-        let temp = devices.device_policy_list.filter((devicePolicy)=>devicePolicy.device_id !== props.device_id)
-        temp.push({device_id: device_id, policy_list: tempPolicies})
-        dispatch(registerNewDevicesAndPolicies({policies: temp}))
+        let temp = services.service_scoped_list.filter((servicePolicy)=>servicePolicy.service_name !== service_name)
+        temp.push({service_name: service_name, scope_list: tempPolicies})
+        dispatch(registerNewServicesAndPolicies({policies: temp}))
 
     }
 
@@ -129,10 +133,10 @@ function PrivacyPage(props){
             </Grid>
             <Grid item sm={12} style={{marginTop: 20}}>
                 <Typography variant="h6" className={classes.subtitle}>Policy settings</Typography>
-                <Typography variant="h4" className={classes.title}>{device_id}</Typography>
+                <Typography variant="h4" className={classes.title}>{service_name}</Typography>
             </Grid>
             <Grid item sm={12} className={classes.policyList}>
-                <PolicyList device_id={device_id} available_policies={available_policy} set_policies={set_policies} handleToggle={handleToggle}/>
+                <PolicyList service_name={service_name} available_policies={set_policies} set_policies={set_policies} handleToggle={handleToggle}/>
             </Grid>
         </Grid>
 

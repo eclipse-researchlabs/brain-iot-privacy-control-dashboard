@@ -19,7 +19,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import LogoImage from "../../../images/logo_nome.png"
 import DevicesPage from "../device/DevicesPage";
 
-import PrivacyPage from "../privacy/PrivacyPage";
+import PrivacyPage from "../device/privacy/PrivacyPage";
 
 import MuiAlert from "@material-ui/lab/Alert";
 import Snackbar from "@material-ui/core/Snackbar";

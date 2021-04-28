@@ -21,7 +21,9 @@ function App() {
                 </LoginRoute>
                 <PrivateRoute path="/home" exact component={UserService.isServiceProvider ? HomePageServiceProvider : HomePage}>
                 </PrivateRoute>
-                <PrivateRoute path="/home/:device_id" component={UserService.isServiceProvider ? HomePageServiceProvider : HomePage}>
+                <PrivateRoute path="/home/device/:device_id" component={UserService.isServiceProvider ? HomePageServiceProvider : HomePage}>
+                </PrivateRoute>
+                <PrivateRoute path="/home/service/:service_name" component={UserService.isServiceProvider ? HomePageServiceProvider : HomePage}>
                 </PrivateRoute>
                 <Redirect from="/**" to="/login"/>
             </Switch>

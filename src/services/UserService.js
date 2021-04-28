@@ -1,5 +1,5 @@
 import Keycloak from "keycloak-js";
-import {AUTH_ENDPOINT, CLIENT_ID, REALM_NAME} from "../utils/config";
+import {AUTH_ENDPOINT, CLIENT_ID, REALM_NAME, REDIRECT_URI} from "../utils/config";
 
 const _kc = new Keycloak({
     realm: REALM_NAME,
@@ -10,7 +10,7 @@ const _kc = new Keycloak({
 const initKeycloak = (onAuthenticatedCallback) => {
     _kc.init({
         onLoad: 'check-sso',
-        redirectUri: 'http://localhost:3000/login'
+        redirectUri: REDIRECT_URI
 
     }).then(function (authenticated) {
 

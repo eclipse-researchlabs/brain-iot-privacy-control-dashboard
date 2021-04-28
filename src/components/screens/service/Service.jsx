@@ -12,7 +12,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import DevicesIcon from "@material-ui/icons/Devices";
 import {useDispatch, useSelector} from "react-redux";
-import {registerNewDevicesAndPolicies} from "../../../redux/ducks/device";
+import {registerNewServicesAndPolicies} from "../../../redux/ducks/service";
 
 const useStyles = makeStyles(theme => ({
 
@@ -42,20 +42,20 @@ const useStyles = makeStyles(theme => ({
 
 }))
 
-function Device(props) {
+function Service(props) {
 
     const classes = useStyles()
     const dispatch = useDispatch()
-    const devices = useSelector((state=>state.device))
+    const services = useSelector((state=>state.service))
 
     function handlePrivacyButtonClick() {
-        history.push('/home/device/' + props.id)
+        history.push('/home/service/' + props.name)
     }
 
-    function handleDeleteDeviceClick(){
+    function handleDeleteServiceClick(){
 
-        let temp = devices.device_policy_list.filter(device=>device.device_id !== props.id)
-        dispatch(registerNewDevicesAndPolicies({policies: temp}))
+        let temp = services.service_scoped_list.filter(service=>service.service_name !== props.name)
+        dispatch(registerNewServicesAndPolicies({policies: temp}))
 
     }
 
@@ -64,7 +64,7 @@ function Device(props) {
         <Grid container justify={"space-between"} spacing={2} >
             <Grid item container sm={12}>
                 <Grid item sm={6}>
-                    <Typography variant={"subtitle2"}  color={"textPrimary"}>Brain-IoT device</Typography>
+                    <Typography variant={"subtitle2"}  color={"textPrimary"}>Brain-IoT service</Typography>
                 </Grid>
                 <Grid item sm={6} style={{textAlign: "right"}}>
                     <DevicesIcon style={{color: "#afc633"}}/>
@@ -73,7 +73,7 @@ function Device(props) {
             <Grid item container spacing={2} direction={"column"} sm={12} justify={"space-between"}>
                 <Grid item>
                     <Typography variant={"overline"}  color={"textSecondary"}>Id</Typography>
-                    <Typography variant={"body1"} style={{fontWeight: 600}}>Device {props.id} </Typography>
+                    <Typography variant={"body1"} style={{fontWeight: 600}}>{props.id} </Typography>
                 </Grid>
                 <Grid item>
                     <Typography variant={"overline"} color={"textSecondary"}>Name</Typography>
@@ -96,7 +96,7 @@ function Device(props) {
                     </IconButton>
                 </Tooltip>
                 <Tooltip title={'Delete device'}>
-                    <IconButton onClick={handleDeleteDeviceClick}>
+                    <IconButton onClick={handleDeleteServiceClick}>
                         <DeleteIcon className={classes.deleteIcon}/>
                     </IconButton>
                 </Tooltip>
@@ -108,4 +108,4 @@ function Device(props) {
 
 }
 
-export default Device;
+export default Service;
