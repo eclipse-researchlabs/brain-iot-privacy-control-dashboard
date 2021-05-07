@@ -62,6 +62,7 @@ function PrivacyPage(props){
 
     const classes = useStyles();
     const dispatch = useDispatch();
+
     const device_id = props.device_id;
     const devices = useSelector(state=>state.device);
 
@@ -80,10 +81,12 @@ function PrivacyPage(props){
 
     const selected_device_policy_list = devices.device_policy_list.find((devicePolicy)=>devicePolicy.device_id === props.device_id)
     const set_policies = selected_device_policy_list.policy_list;
+    const storage_policy = selected_device_policy_list.storage_policy;
 
     let tempPolicies;
     tempPolicies = set_policies.slice()
 
+    let tempStoragePolicy = storage_policy;
 
     function handleToggle(policy_id, new_state){
 
@@ -96,13 +99,19 @@ function PrivacyPage(props){
 
     }
 
+    function handleSetDate(storage_policy){
+
+
+        tempStoragePolicy = storage_policy
+
+    }
 
 
 
      function handleSaveButtonClick()  {
 
         let temp = devices.device_policy_list.filter((devicePolicy)=>devicePolicy.device_id !== props.device_id)
-        temp.push({device_id: device_id, policy_list: tempPolicies})
+        temp.push({device_id: device_id, policy_list: tempPolicies, storage_policy: tempStoragePolicy})
         dispatch(registerNewDevicesAndPolicies({policies: temp}))
 
     }
@@ -134,7 +143,7 @@ function PrivacyPage(props){
                 <Typography variant="h4" className={classes.title}>{device_id}</Typography>
             </Grid>
             <Grid item sm={12} className={classes.policyList}>
-                <PolicyList device_id={device_id} available_policies={available_policy} set_policies={set_policies} handleToggle={handleToggle}/>
+                <PolicyList device_id={device_id} available_policies={available_policy} set_policies={set_policies} storage_policy={storage_policy} handleToggle={handleToggle} handleSetDate={handleSetDate}/>
             </Grid>
         </Grid>
 

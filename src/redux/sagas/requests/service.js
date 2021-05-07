@@ -7,20 +7,20 @@ import UserService from "../../../services/UserService";
 
 export function requestGetServicesAndPolicies(){
 
-    const url = BACKEND_ENDPOINT + "/api/v1/service";
+    const url = BACKEND_ENDPOINT + "/api/v1/brain_consumers/service";
     return HttpService.getAxiosClient().get(url);
 
 
 }
 
-export function requestRegisterNewServicesAndPolicies(policies){
 
-    const url = BACKEND_ENDPOINT + "/api/v1/service";
-    const user_id = UserService.getUsername();
+export function requestRegisterNewServicesAndPolicies(name, scope_list){
+
+    const url = BACKEND_ENDPOINT + "/api/v1/brain_consumers/service";
     const params =
         {
-            "user_id": UserService.getUsername(),
-            "device_policy_list": policies
+            "name": name,
+            "scope_list": scope_list
         }
 
     return HttpService.getAxiosClient().post(url, params)

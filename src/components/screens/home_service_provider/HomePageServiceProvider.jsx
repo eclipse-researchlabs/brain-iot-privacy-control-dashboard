@@ -81,9 +81,11 @@ const useStyles = makeStyles(theme => ({
 
         fontWeight: 500,
         fontSize: 14,
+        textOverflow: 'ellipsis',
         color: theme.palette.primary.dark,
         overflow: 'hidden',
-        textAlign: "center"
+        textAlign: "center",
+        margin: 12
 
 
     }
@@ -104,6 +106,7 @@ function HomePageServiceProvider(props){
 
     const selectedServiceName = props.match.params.service_name ? props.match.params.service_name : null
     console.log(selectedServiceName)
+
 
     const [selectedMenuIndex, setSelectedMenuIndex] = useState(0)
     const [isPopupVisible, setPopupVisibility] = useState(false)

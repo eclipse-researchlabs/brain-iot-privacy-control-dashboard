@@ -37,17 +37,17 @@ export function* handleGetServicesAndPolicies(action){
 export function* handleRegisterNewServicesAndPolicies(action){
 
 
-    const {policies} = action.payload;
+    const {name, scope_list} = action.payload;
 
 
     try {
 
         yield put(setStatus({loading:true}))
 
-        const response = yield call(requestRegisterNewServicesAndPolicies, policies);
+        const response = yield call(requestRegisterNewServicesAndPolicies, name, scope_list);
         const {data} = response;
 
-        yield put(setServicesAndPolicies({device_policy_list: policies}))
+        yield put(setServicesAndPolicies({name: name, scope_list: scope_list}))
         yield put(setStatus({loading:false, error: false, statusText: "Action performed correctly!"}))
 
     }catch (error) {
@@ -57,8 +57,5 @@ export function* handleRegisterNewServicesAndPolicies(action){
         }
         else
             yield put(setStatus({loading:false, error: true, statusText: "An error has occurred!"}))
-
-
     }
-
 }

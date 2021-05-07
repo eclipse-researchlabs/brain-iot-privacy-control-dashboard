@@ -54,8 +54,8 @@ function Service(props) {
 
     function handleDeleteServiceClick(){
 
-        let temp = services.service_scoped_list.filter(service=>service.service_name !== props.name)
-        dispatch(registerNewServicesAndPolicies({policies: temp}))
+        // let temp = services.service_scoped_list.filter(service=>service.service_name !== props.name)
+        // dispatch(registerNewServicesAndPolicies({policies: temp}))
 
     }
 

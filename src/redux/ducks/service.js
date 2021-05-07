@@ -3,7 +3,9 @@ import {createSlice} from "@reduxjs/toolkit";
 const serviceSlice = createSlice({
     name: 'service',
     initialState: {
-        service_scoped_list: undefined,
+        available_policy: [],
+        scope_list: [],
+        name: "",
         loading: false,
         error: false,
         statusText: ""

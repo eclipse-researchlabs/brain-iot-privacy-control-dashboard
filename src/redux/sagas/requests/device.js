@@ -7,7 +7,7 @@ import UserService from "../../../services/UserService";
 
 export function requestGetDevicesAndPolicies(){
 
-    const url = BACKEND_ENDPOINT + "/api/v1/policy";
+    const url = BACKEND_ENDPOINT + "/api/v1/brain_user/policy";
     return HttpService.getAxiosClient().get(url);
 
 
@@ -15,14 +15,9 @@ export function requestGetDevicesAndPolicies(){
 
 export function requestRegisterNewDevicesAndPolicies(policies){
 
-    const url = BACKEND_ENDPOINT + "/api/v1/policy";
-    const user_id = UserService.getUsername();
-    const params =
-        {
-            "user_id": UserService.getUsername(),
-            "device_policy_list": policies
-        }
-
+    const url = BACKEND_ENDPOINT + "/api/v1/brain_user/policy";
+    console.log(policies);
+    const params = policies;
     return HttpService.getAxiosClient().post(url, params)
 }
 
