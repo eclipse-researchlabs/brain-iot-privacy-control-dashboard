@@ -17,6 +17,7 @@ const initKeycloak = (onAuthenticatedCallback) => {
         onAuthenticatedCallback()
         if (authenticated) {
             console.log('authenticated');
+            console.log(_kc.token)
         } else {
             console.log('not authenticated');
         }

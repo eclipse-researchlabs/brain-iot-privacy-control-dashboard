@@ -1,7 +1,13 @@
 import {all, takeLatest} from 'redux-saga/effects';
-import {handleGetDevicesAndPolicies, handleRegisterNewDevicesAndPolicies
+import {
+    handleGetDevicesAndPolicies, handleRegisterNewDeviceAndPolicies, handleRemoveDevice, handleUpdateDeviceAndPolicies,
 } from "./handlers/device";
-import {getDevicesAndPolicies, registerNewDevicesAndPolicies} from "../ducks/device";
+import {
+    getDevicesAndPolicies,
+    registerNewDeviceAndPolicies,
+    removeDevice,
+    updateDeviceAndPolicies
+} from "../ducks/device";
 
 
 function* watchGetDevicesAndPolicies(){
@@ -10,13 +16,27 @@ function* watchGetDevicesAndPolicies(){
 }
 
 
-function* watchRegisterNewPolicies(){
-    yield takeLatest(registerNewDevicesAndPolicies.type, handleRegisterNewDevicesAndPolicies)
+function* watchRegisterNewDeviceAndPolicies(){
+    yield takeLatest(registerNewDeviceAndPolicies.type, handleRegisterNewDeviceAndPolicies)
+}
+
+
+function* watchUpdateDeviceAndPolicies(){
+    yield takeLatest(updateDeviceAndPolicies.type, handleUpdateDeviceAndPolicies)
+
+}
+
+function* watchRemoveDevice(){
+
+    yield takeLatest(removeDevice.type, handleRemoveDevice)
+
 }
 
 export function* watcherDeviceSaga(){
     yield all([
         watchGetDevicesAndPolicies(),
-        watchRegisterNewPolicies()
+        watchRegisterNewDeviceAndPolicies(),
+        watchUpdateDeviceAndPolicies(),
+        watchRemoveDevice()
     ])
 }

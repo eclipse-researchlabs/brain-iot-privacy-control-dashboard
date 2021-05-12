@@ -1,6 +1,14 @@
 import {call, put} from "redux-saga/effects";
-import {requestGetDevicesAndPolicies, requestRegisterNewDevicesAndPolicies} from "../requests/device";
-import {setDevicesAndPolicies, setStatus} from "../../ducks/device";
+import {requestGetDevicesAndPolicies,
+    requestRegisterNewDeviceAndPolicies, requestRemoveDevice,
+    requestUpdateDeviceAndPolicies
+} from "../requests/device";
+import {
+    addNewDeviceAndPoliciesState, modifyDeviceAndPoliciesState,
+    removeDeviceState,
+    setDevicesAndPoliciesState,
+    setStatus
+} from "../../ducks/device";
 
 export function* handleGetDevicesAndPolicies(action){
 
@@ -13,14 +21,14 @@ export function* handleGetDevicesAndPolicies(action){
         const {data} = response;
         console.log(data)
 
-        yield put(setDevicesAndPolicies(data))
+        yield put(setDevicesAndPoliciesState(data))
         yield put(setStatus({loading:false, error: false}))
 
 
     }catch (error) {
         console.log(error);
 
-        if (error){
+        if (error && error.response){
             yield put(setStatus({loading:false, error: true, statusText: error.message + " - Reason: " + error.response.data.detail }))
         }
         else
@@ -33,25 +41,25 @@ export function* handleGetDevicesAndPolicies(action){
 }
 
 
-export function* handleRegisterNewDevicesAndPolicies(action){
+export function* handleRegisterNewDeviceAndPolicies(action){
 
 
-    const {policies} = action.payload;
+    const {device_id, policy_list} = action.payload;
 
 
     try {
 
         yield put(setStatus({loading:true}))
 
-        const response = yield call(requestRegisterNewDevicesAndPolicies, policies);
-        const {data} = response;
+        let response = yield call(requestRegisterNewDeviceAndPolicies, device_id, policy_list);
 
-        yield put(setDevicesAndPolicies({device_policy_list: policies}))
+        console.log(response)
+        yield put(addNewDeviceAndPoliciesState({device_id: device_id, policy_list: policy_list}))
         yield put(setStatus({loading:false, error: false, statusText: "Action performed correctly!"}))
 
     }catch (error) {
         console.log(error);
-        if (error){
+        if (error && error.response){
             yield put(setStatus({loading:false, error: true, statusText: error.message + " - Reason: " + error.response.data.detail }))
         }
         else
@@ -59,5 +67,62 @@ export function* handleRegisterNewDevicesAndPolicies(action){
 
 
     }
+
+}
+
+
+export function* handleUpdateDeviceAndPolicies(action){
+
+    const {device_id, policy_list, storage_policy} = action.payload;
+
+    console.log(action.payload)
+
+    try {
+
+        yield put(setStatus({loading:true}))
+
+        yield call(requestUpdateDeviceAndPolicies, device_id, policy_list, storage_policy);
+
+        yield put(modifyDeviceAndPoliciesState({device_id: device_id, policy_list: policy_list, storage_policy: storage_policy}))
+        yield put(setStatus({loading:false, error: false, statusText: "Action performed correctly!"}))
+
+    }catch (error) {
+        console.log(error);
+        if (error && error.response){
+            yield put(setStatus({loading:false, error: true, statusText: error.message + " - Reason: " + error.response.data.detail }))
+        }
+        else
+            yield put(setStatus({loading:false, error: true, statusText: "An error has occurred!"}))
+
+
+    }
+
+}
+
+export function* handleRemoveDevice(action){
+
+    const {device_id} = action.payload;
+
+
+    try {
+
+        yield put(setStatus({loading:true}))
+
+        yield call(requestRemoveDevice, device_id);
+
+        yield put(removeDeviceState({device_id: device_id}))
+        yield put(setStatus({loading:false, error: false, statusText: "Action performed correctly!"}))
+
+    }catch (error) {
+        console.log(error);
+        if (error && error.response){
+            yield put(setStatus({loading:false, error: true, statusText: error.message + " - Reason: " + error.response.data.detail }))
+        }
+        else
+            yield put(setStatus({loading:false, error: true, statusText: "An error has occurred!"}))
+
+
+    }
+
 
 }

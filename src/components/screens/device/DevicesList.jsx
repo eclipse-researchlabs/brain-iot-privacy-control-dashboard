@@ -1,7 +1,6 @@
 import React from 'react';
 import Device from "./Device";
 import {CircularProgress, Grid, Typography} from "@material-ui/core";
-import DeviceListHeader from "./DeviceListHeader";
 import {useSelector} from "react-redux";
 import {makeStyles} from "@material-ui/core/styles";
 import AddDevice from "./AddDevice";

@@ -6,7 +6,7 @@ import IconButton from "@material-ui/core/IconButton";
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import {useDispatch, useSelector} from "react-redux";
-import {registerNewServicesAndPolicies, setStatus} from "../../../redux/ducks/service";
+import {registerNewServiceAndPolicies, setStatus} from "../../../redux/ducks/service";
 const useStyles = makeStyles(theme=>({
 
     rootNoClick: {
@@ -55,21 +55,16 @@ function AddService(){
     function handleConfirm(){
 
         if (newService.service_id === "")
-            dispatch(setStatus({error: true, statusText: "Ciao"}))
-        else if (newService.service_name === "")
-            dispatch(setStatus({error: true, statusText: "No"}))
+            dispatch(setStatus({error: true, statusText: "Service Id can't be empty!"}))
+        // else if (newService.service_name === "")
+        //     dispatch(setStatus({error: true, statusText: "No"}))
         else {
 
-            let duplicates = services.service_scoped_list.filter((servicePolicy)=>servicePolicy.service_name === newService.service_name)
-
-            console.log(duplicates)
-
+            let duplicates = services.service_policy_list.filter((servicePolicy)=>servicePolicy.name === newService.service_id)
 
 
             if (duplicates.length === 0) {
-                let temp = services.service_scoped_list.slice()
-                temp.push({service_name: newService.service_name, policy_list: []})
-                dispatch(registerNewServicesAndPolicies({policies: temp}))
+                dispatch(registerNewServiceAndPolicies({name: newService.service_id, resource_scopes: []}))
             }
 
 
@@ -81,7 +76,6 @@ function AddService(){
 
 
         const {id, value} = event.target;
-        console.log(id)
         setNewService({...newService, [id]: value})
 
     }
@@ -105,10 +99,10 @@ function AddService(){
 
                 <Grid item container direction={"column"}>
                     <TextField id="service_id" label="Service id" onChange={handleChange} style={{fontSize: 12}} />
-                    <TextField id="service_name" label="Service name" onChange={handleChange} style={{fontSize: 12, marginTop: 10}}/>
+                    {/*<TextField id="service_name" label="Service name" onChange={handleChange} style={{fontSize: 12, marginTop: 10}}/>*/}
                 </Grid>
 
-                <Grid item container spacing={2}>
+                <Grid item container spacing={2} style={{marginTop: 10}}>
                     <Grid item sm={6} xs={12} style={{color:"white"}}>
                         <IconButton onClick={handleConfirm} style={{backgroundColor:"darkgreen",color: "white", width: 40, height: 40}}><CheckIcon/></IconButton>
                     </Grid>

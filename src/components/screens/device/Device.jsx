@@ -11,8 +11,8 @@ import history from "../../../history";
 import {makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import DevicesIcon from "@material-ui/icons/Devices";
-import {useDispatch, useSelector} from "react-redux";
-import {registerNewDevicesAndPolicies} from "../../../redux/ducks/device";
+import {useDispatch} from "react-redux";
+import {removeDevice} from "../../../redux/ducks/device";
 
 const useStyles = makeStyles(theme => ({
 
@@ -46,7 +46,6 @@ function Device(props) {
 
     const classes = useStyles()
     const dispatch = useDispatch()
-    const devices = useSelector((state=>state.device))
 
     function handlePrivacyButtonClick() {
         history.push('/home/device/' + props.id)
@@ -54,8 +53,7 @@ function Device(props) {
 
     function handleDeleteDeviceClick(){
 
-        let temp = devices.device_policy_list.filter(device=>device.device_id !== props.id)
-        dispatch(registerNewDevicesAndPolicies({policies: temp}))
+        dispatch(removeDevice({device_id: props.id}))
 
     }
 

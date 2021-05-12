@@ -42,11 +42,6 @@ function Form(props) {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const [contact, setContact] = useState({
-        username: "",
-        password: "",
-        showPassword: false,
-    });
 
     const [errorText, setErrorText] = useState("");
 

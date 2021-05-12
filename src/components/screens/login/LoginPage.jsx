@@ -7,7 +7,6 @@ import BackgroundImage from "../../../images/background.jpg"
 import LogoImage from "../../../images/logo.jpg"
 import {useTheme} from "@material-ui/styles";
 import Link from "@material-ui/core/Link";
-import {useDispatch} from "react-redux";
 
 
 const useStyles = makeStyles({

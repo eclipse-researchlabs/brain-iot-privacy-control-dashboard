@@ -1,6 +1,15 @@
 import {all, takeLatest} from 'redux-saga/effects';
-import {handleGetServicesAndPolicies, handleRegisterNewServicesAndPolicies} from "./handlers/service";
-import {getServicesAndPolicies, registerNewServicesAndPolicies} from "../ducks/service";
+import {
+    handleGetServicesAndPolicies,
+    handleRegisterNewServicesAndPolicies, handleRemoveService,
+    handleUpdateServiceAndPolicies
+} from "./handlers/service";
+import {
+    getServicesAndPolicies,
+    registerNewServiceAndPolicies,
+    removeService,
+    updateServiceAndPolicies
+} from "../ducks/service";
 
 
 function* watchGetServices(){
@@ -9,13 +18,26 @@ function* watchGetServices(){
 }
 
 
-function* watchRegisterNewServices(){
-    yield takeLatest(registerNewServicesAndPolicies.type, handleRegisterNewServicesAndPolicies)
+function* watchRegisterNewService(){
+    yield takeLatest(registerNewServiceAndPolicies.type, handleRegisterNewServicesAndPolicies)
 }
+
+function* watchUpdateService(){
+
+    yield takeLatest(updateServiceAndPolicies.type, handleUpdateServiceAndPolicies)
+
+}
+
+function* watchRemoveService(){
+    yield takeLatest(removeService.type, handleRemoveService)
+}
+
 
 export function* watcherServiceSaga(){
     yield all([
         watchGetServices(),
-        watchRegisterNewServices()
+        watchRegisterNewService(),
+        watchUpdateService(),
+        watchRemoveService()
     ])
 }

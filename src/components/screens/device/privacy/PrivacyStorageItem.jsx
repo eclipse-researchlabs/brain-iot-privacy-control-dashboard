@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {makeStyles} from "@material-ui/core/styles";
-import {Grid, ListItem, ListItemSecondaryAction, ListItemText} from "@material-ui/core";
+import {ListItem, ListItemSecondaryAction, ListItemText} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import DateFnsUtils from '@date-io/date-fns';
 import {

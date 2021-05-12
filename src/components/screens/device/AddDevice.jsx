@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
-import {Box, Grid, Icon, Paper, TextField} from "@material-ui/core";
+import {Grid, Icon, Paper, TextField} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import {useDispatch, useSelector} from "react-redux";
-import {registerNewDevicesAndPolicies, setStatus} from "../../../redux/ducks/device";
+import {registerNewDeviceAndPolicies, setStatus} from "../../../redux/ducks/device";
 const useStyles = makeStyles(theme=>({
 
     rootNoClick: {
@@ -62,14 +62,8 @@ function AddDevice(){
 
             let duplicates = devices.device_policy_list.filter((devicePolicy)=>devicePolicy.device_id === newDevice.device_id)
 
-            console.log(duplicates)
-
-            console.log( devices.device_policy_list)
-
             if (duplicates.length === 0) {
-                let temp = devices.device_policy_list.slice()
-                temp.push({device_id: newDevice.device_id, policy_list: []})
-                dispatch(registerNewDevicesAndPolicies({policies: temp}))
+                dispatch(registerNewDeviceAndPolicies({device_id: newDevice.device_id, policy_list: []}))
             }
 
 
@@ -81,7 +75,6 @@ function AddDevice(){
 
 
         const {id, value} = event.target;
-        console.log(id)
         setNewDevice({...newDevice, [id]: value})
 
     }

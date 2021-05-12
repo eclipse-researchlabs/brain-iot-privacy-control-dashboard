@@ -11,8 +11,8 @@ import history from "../../../history";
 import {makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import DevicesIcon from "@material-ui/icons/Devices";
-import {useDispatch, useSelector} from "react-redux";
-import {registerNewServicesAndPolicies} from "../../../redux/ducks/service";
+import {useDispatch} from "react-redux";
+import {removeService} from "../../../redux/ducks/service";
 
 const useStyles = makeStyles(theme => ({
 
@@ -46,16 +46,14 @@ function Service(props) {
 
     const classes = useStyles()
     const dispatch = useDispatch()
-    const services = useSelector((state=>state.service))
 
     function handlePrivacyButtonClick() {
-        history.push('/home/service/' + props.name)
+        history.push('/home/service/' + props.service_id)
     }
 
     function handleDeleteServiceClick(){
 
-        // let temp = services.service_scoped_list.filter(service=>service.service_name !== props.name)
-        // dispatch(registerNewServicesAndPolicies({policies: temp}))
+        dispatch(removeService({service_id: props.service_id}))
 
     }
 
@@ -73,12 +71,12 @@ function Service(props) {
             <Grid item container spacing={2} direction={"column"} sm={12} justify={"space-between"}>
                 <Grid item>
                     <Typography variant={"overline"}  color={"textSecondary"}>Id</Typography>
-                    <Typography variant={"body1"} style={{fontWeight: 600}}>{props.id} </Typography>
+                    <Typography variant={"body1"} style={{fontWeight: 600}}>{props.service_id} </Typography>
                 </Grid>
-                <Grid item>
-                    <Typography variant={"overline"} color={"textSecondary"}>Name</Typography>
-                    <Typography variant={"body1"} style={{fontWeight: 600}}>{props.name}</Typography>
-                </Grid>
+                {/*<Grid item>*/}
+                {/*    <Typography variant={"overline"} color={"textSecondary"}>Name</Typography>*/}
+                {/*    <Typography variant={"body1"} style={{fontWeight: 600}}>{props.service_name}</Typography>*/}
+                {/*</Grid>*/}
                 <Grid item>
                     <Typography variant={"overline"}  color={"textSecondary"}>Set policies</Typography>
                     <Typography variant={"body1"} style={{fontWeight: 600}}>{props.setPolicies}</Typography>

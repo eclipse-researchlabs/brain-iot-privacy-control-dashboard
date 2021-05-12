@@ -3,7 +3,7 @@ import UserService from "../../../services/UserService";
 import {REDIRECT_URI} from "../../../utils/config";
 
 
-export function* handleLogout(action){
+export function handleLogout(action){
 
     try {
         UserService.doLogout({
@@ -21,7 +21,7 @@ export function* handleLogout(action){
 
 
 
-export function* handleLoginKeycloak(action){
+export function handleLoginKeycloak(action){
 
     console.log("HANDLING LOGIN KEYCLOAK")
 

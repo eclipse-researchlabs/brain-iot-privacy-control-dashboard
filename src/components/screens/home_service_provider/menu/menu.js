@@ -1,4 +1,3 @@
-import DevicesIcon from "@material-ui/icons/Devices";
 import React from "react";
 import SettingsIcon from "@material-ui/icons/Settings";
 import ExtensionIcon from '@material-ui/icons/Extension';

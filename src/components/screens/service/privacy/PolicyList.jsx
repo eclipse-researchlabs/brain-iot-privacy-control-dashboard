@@ -23,8 +23,8 @@ function PolicyList(props){
     const classes = useStyles();
 
     return <Paper elevation={2} className={classes.root}>
-        <List subheader={<ListSubheader>Available policies</ListSubheader>}>
-            {props.available_policies.map((policy, index)=>(
+        <List subheader={<ListSubheader disableSticky={true}>Available policies</ListSubheader>}>
+            {props.available_policy.map((policy, index)=>(
                 <PolicyItem key={index} policy_name={policy} handleToggle={props.handleToggle} checked={props.set_policies.includes(policy)}/>))}
 
         </List>

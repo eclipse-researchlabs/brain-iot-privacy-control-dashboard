@@ -104,8 +104,7 @@ function HomePageServiceProvider(props){
     const services = useSelector(state => state.service)
 
 
-    const selectedServiceName = props.match.params.service_name ? props.match.params.service_name : null
-    console.log(selectedServiceName)
+    const selectedServiceId = props.match.params.service_name ? props.match.params.service_name : null
 
 
     const [selectedMenuIndex, setSelectedMenuIndex] = useState(0)
@@ -184,7 +183,7 @@ function HomePageServiceProvider(props){
                 </Grid>
             </Grid>
         </Drawer>
-        {selectedServiceName ? <PrivacyPage service_name={selectedServiceName}/> : <ServicesPage/>}
+        {selectedServiceId ? <PrivacyPage service_id={selectedServiceId}/> : <ServicesPage/>}
 
         <Snackbar autoHideDuration={4000}  open={isPopupVisible} onClose={handlePopupClose} anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}>
             <Alert severity={services.error ? "error" : "success"}>

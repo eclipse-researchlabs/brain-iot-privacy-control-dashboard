@@ -5,7 +5,10 @@ import PolicyList from "./PolicyList";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import history from "../../../../history";
 import {useDispatch, useSelector} from "react-redux";
-import {registerNewDevicesAndPolicies} from "../../../../redux/ducks/device";
+import {
+
+    updateDeviceAndPolicies
+} from "../../../../redux/ducks/device";
 
 const useStyles = makeStyles(theme=>({
 
@@ -110,9 +113,7 @@ function PrivacyPage(props){
 
      function handleSaveButtonClick()  {
 
-        let temp = devices.device_policy_list.filter((devicePolicy)=>devicePolicy.device_id !== props.device_id)
-        temp.push({device_id: device_id, policy_list: tempPolicies, storage_policy: tempStoragePolicy})
-        dispatch(registerNewDevicesAndPolicies({policies: temp}))
+        dispatch(updateDeviceAndPolicies({device_id: props.device_id, policy_list: tempPolicies, storage_policy: tempStoragePolicy}))
 
     }
 
