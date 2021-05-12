@@ -79,7 +79,7 @@ function Service(props) {
                 {/*</Grid>*/}
                 <Grid item>
                     <Typography variant={"overline"}  color={"textSecondary"}>Set policies</Typography>
-                    <Typography variant={"body1"} style={{fontWeight: 600}}>{props.setPolicies}</Typography>
+                    <Typography variant={"body1"} style={{fontWeight: 600, overflowWrap: "anywhere"}}>{props.setPolicies}</Typography>
                 </Grid>
             </Grid>
             <Grid item container  sm={12}  justify={"center"}>
