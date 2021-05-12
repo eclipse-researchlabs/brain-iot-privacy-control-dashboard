@@ -40,6 +40,7 @@ const useStyles = makeStyles(theme => ({
             color: 'darkred'
         },
 
+
 }))
 
 function Service(props) {
@@ -71,7 +72,7 @@ function Service(props) {
             <Grid item container spacing={2} direction={"column"} sm={12} justify={"space-between"}>
                 <Grid item>
                     <Typography variant={"overline"}  color={"textSecondary"}>Id</Typography>
-                    <Typography variant={"body1"} style={{fontWeight: 600}}>{props.service_id} </Typography>
+                    <Typography variant={"body1"} style={{fontWeight: 600, overflowWrap: "anywhere"}}>{props.service_id} </Typography>
                 </Grid>
                 {/*<Grid item>*/}
                 {/*    <Typography variant={"overline"} color={"textSecondary"}>Name</Typography>*/}
