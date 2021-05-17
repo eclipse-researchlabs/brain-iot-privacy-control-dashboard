@@ -10,10 +10,18 @@
 * SPDX-License-Identifier: EPL-2.0
 ******************************************************************************
 */
-export const REALM_NAME = 'Brainiot';
-export const CLIENT_ID = 'client_pub';
 
-export const AUTH_ENDPOINT = 'https://ipt-services.polito.it/auth'
-export const BACKEND_ENDPOINT = 'https://ipt-services.polito.it/brainpep'
+// KEYCLOAK CONFIGURATION
+export const REALM_NAME = 'Insert REALM name';
+export const CLIENT_ID = 'Insert client ID';
 
-export const REDIRECT_URI = 'https://ipt-services.polito.it/webgui/login';
+
+// ENDPOINTS CONFIGURATION
+// KEYCLOAK HOSTING SERVER
+export const AUTH_ENDPOINT = 'https://insert-keycloak-hosting-uri'
+
+// BRAINPEP HOSTING SERVER
+export const BACKEND_ENDPOINT = 'https://insert-brain-pep-server-hosting-uri'
+
+// REDIRECT PAGE URI AFTER LOGIN PHASE (USUALLY LOGIN PAGE)
+export const REDIRECT_URI = 'https://insert-dashboard-hosting-uri/login';

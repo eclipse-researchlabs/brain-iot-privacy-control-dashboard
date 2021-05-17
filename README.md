@@ -3,9 +3,11 @@
 
 ## Introduction
 
-Web-based user interface which serves as interface for the data owners to set the policies associated to their own data. It also serves as an interface for the service providers to set the data access requirements needed to provide the service. The policies defined by Data Owners and Data Consumers through the Privacy Dashboard are stored to the Authorization Server through the BRAIN-IoT PEP (please refer to the related [README](https://github.com/eclipse-researchlabs/brain-iot-privacy-control-system/blob/main/privacy_dashboard/README.md) for more details).
+Web-based user interface which serves as interface for the data owners to set the policies associated to their own data. It also serves as an interface
+for the service providers to set the data access requirements needed to provide the service. 
+The policies defined by Data Owners and Data Consumers through the Privacy Dashboard are stored to the Authorization Server 
+through the BrainPEP.
 
-The repository includes also an example folder that contains the application used to test the Privacy Control System, in the use case defined in collaboration with the MONICA EU project. (please refer to the related [README](https://github.com/eclipse-researchlabs/brain-iot-privacy-control-system/blob/main/examples/README.md))
 
 
 ## Installation
@@ -19,8 +21,49 @@ The repository includes also an example folder that contains the application use
 
 ### `npm install -g yarn`
 
+---
 
-## Available Scripts
+#### NOTE
+
+Users need to be previously stored on Keycloak instance, providing them with a Realm level role which can be either:
+
+- `brain_user` for base users; or
+- `brain_consumer` for service providers.
+
+
+### Configuration
+
+
+In order to run the dashboard web-app, it is necessary to configure the service so that a Keycloak connection is established (it is expected that a running Keycloak instance is available) to retrieve a valid token and interact with the server.
+Moreover, the BrainPEP hosting URL has to be set in the configuration file.
+
+Inside `/src/utils/config.js`, please specify:
+
+#### Keycloak settings
+
+`REALM NAME` - Name of the Realm configured in Keycloak administration panel.
+
+`CLIENT_ID` - Public Client ID enabled to interact with Keycloak to obtain access tokens via Authorization Code Flow.
+
+`AUTH_ENDPOINT` - Keycloak URL to obtain access token.
+
+#### BrainPEP settings
+
+`BACKEND_ENDPOINT` - Backend base path. (es. http://your-backend-base-url/)
+
+#### Front-end Redirect URI
+
+`REDIRECT_URI` - Landing page after login with Keycloak auth provider. It can be either http://localhost:4000/login (run on localhost), or https://your_dashboard_hosting_url/login. 
+
+#### IMPORTANT
+
+It is necessary to configure Keycloak in order to allow redirection after login procedure, from the public Client administration panel :
+
+1. `Valid Redirect URIs` - http://localhost:4000/* or https://your_dashboard_hosting_url/*
+
+2. `Web Origins` http://localhost:4000 or https://your_dashboard_hosting_url
+
+## Deployment
 
 In the project directory, you can run:
 
@@ -42,8 +85,14 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+### `serve -s build`
 
-## Configuration
+Deploys the bundle obtained through `yarn build` script.
+
+For more information about deployment of React JS web apps, visit:\
+https://create-react-app.dev/docs/deployment/
+
+
 
 
 ## License
